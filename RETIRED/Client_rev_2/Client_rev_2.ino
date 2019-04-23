@@ -2,39 +2,39 @@
 #include <ESP8266WiFi.h>
 #include <WiFiUdp.h>
 
-const char *ssid = "CoffeeMaker8266";
-const char *pass = "CoffeePassword";
 
-unsigned int localPort = 2000; // local port to listen for UDP packets
+WiFiUDP udp;
 
 IPAddress ServerIP(192, 168, 4, 1);
 IPAddress ClientIP(192, 168, 4, 2);
 
-// A UDP instance to let us send and receive packets over UDP
-WiFiUDP udp;
+const char *ssid = "CoffeeMaker8266";
+const char *pass = "CoffeePassword";
+
+
 
 char packetBuffer[255]; //buffer to hold incoming packet
 char  ReplyBuffer[] = "Client";
 
 int LED_BUILTINR = 5;
+unsigned int localPort = 2000; // local port to listen for UDP packets
+
 //======================================================================
 //                Setup
 //======================================================================
+
 void setup()
 {
-
   Serial.begin(9600);
   Serial.println();
-
   WiFi.begin(ssid, pass);   //Connect to access point
+  Serial.println(""); // Wait for connection
 
-  Serial.println("");
-
-  // Wait for connection
   while (WiFi.status() != WL_CONNECTED) {
     delay(500);
     Serial.print(".");
   }
+
   Serial.println("");
   Serial.print("Connected to ");
   Serial.println(ssid);
