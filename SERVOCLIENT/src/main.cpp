@@ -24,8 +24,12 @@ int buff = 0;
 
 //speed controller
 void speed(int s) {
-  if (s=='1') {
-    digitalWrite(dirpin, HIGH);
+  if (s=='0') {
+    digitalWrite(steppin, LOW);
+    delayMicroseconds(450);
+    digitalWrite(steppin, HIGH);
+    delayMicroseconds(450);
+  } else if (s=='1') {
     digitalWrite(steppin, LOW);
     delayMicroseconds(450);
     digitalWrite(steppin, HIGH);
