@@ -101,7 +101,7 @@ void loop()
       strcpy(ReplyBuffer, "3");
       delay(10);
     }
-
+Serial.println(ReplyBuffer);
   //Serial.println(ReplyBuffer);
   //data sent to client
   udp.beginPacket(ClientIP, 2000);
