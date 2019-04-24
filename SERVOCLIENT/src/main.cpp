@@ -26,9 +26,9 @@ int buff = 0;
 void speed(int s) {
   if (s=='0') {
     digitalWrite(steppin, LOW);
-    delayMicroseconds(450);
-    digitalWrite(steppin, HIGH);
-    delayMicroseconds(450);
+    delayMicroseconds(0);
+    digitalWrite(steppin, LOW);
+    delayMicroseconds(0);
   } else if (s=='1') {
     digitalWrite(steppin, LOW);
     delayMicroseconds(450);
