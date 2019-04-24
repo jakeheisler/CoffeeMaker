@@ -7,17 +7,24 @@
 */
 #include <ESP8266WiFi.h>
 #include <WiFiUdp.h>
+#include <arduino.h>
 
-const char *ssid = "CoffeeMaker8266";
-const char *pass = "CoffeePassword";
 
-unsigned int localPort = 2000; // local port to listen for UDP packets
+WiFiUDP udp;
 
 IPAddress ServerIP(192, 168, 4, 1);
 IPAddress ClientIP(192, 168, 4, 2);
 
+const char *ssid = "CoffeeMaker8266";
+const char *pass = "CoffeePassword";
+
+
+unsigned int localPort = 2000; // local port to listen for UDP packets
+
+
+
 // A UDP instance to let us send and receive packets over UDP
-WiFiUDP udp;
+
 
 char packetBuffer[255]; //buffer to hold incoming packet
 char  ReplyBuffer[] = "L";
