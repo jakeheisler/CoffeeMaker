@@ -21,9 +21,38 @@ char  ReplyBuffer[] = "Client";
 int steppin = 4;
 int dirpin = 0;
 int BUFF = 0;
-//======================================================================
+
 //                Setup
-//======================================================================
+//speed controller
+void speed(int s) {
+  if (s=='1') {
+    digitalWrite(dirpin, HIGH);
+    digitalWrite(steppin, LOW);
+    delayMicroseconds(450);
+    digitalWrite(steppin, HIGH);
+    delayMicroseconds(450);
+  } else if (s=='2') {
+    digitalWrite(steppin, LOW);
+    delayMicroseconds(600);
+    digitalWrite(steppin, HIGH);
+    delayMicroseconds(600);
+  } else if (s=='3') {
+    digitalWrite(steppin, LOW);
+    delayMicroseconds(850);
+    digitalWrite(steppin, HIGH);
+    delayMicroseconds(850);
+  } else {}
+}
+
+//direction controller
+void direction(int b) {
+  if (b=='H') {
+    digitalWrite(dirpin, HIGH);
+  } else if (b=='L') {
+    digitalWrite(dirpin, LOW);
+  } else{}
+}
+
 void setup()
 {
 
@@ -54,9 +83,9 @@ void setup()
   pinMode(steppin, OUTPUT);
   pinMode(dirpin, OUTPUT);
 }
-//======================================================================
+
 //                MAIN LOOP
-//======================================================================
+
 void loop()
 {
   int packetSize = udp.parsePacket();
@@ -75,41 +104,11 @@ void loop()
   BUFF = packetBuffer[0];
 
 
-if (BUFF=='1') {
-  /* code */
-}
-if()
+speed(BUFF);
+direction(BUFF);
 
 
-speed;
-
-  // if (BUFF == 'H')
-  // {
-  //   digitalWrite(dirpin, HIGH);
-  //   digitalWrite(steppin, LOW);
-  //   delayMicroseconds(450);
-  //   digitalWrite(steppin, HIGH);
-  //   delayMicroseconds(450);
-  // } else {
-  //   digitalWrite(dirpin, LOW);
-  //   digitalWrite(steppin, LOW);
-  //   delayMicroseconds(400);
-  //   digitalWrite(steppin, HIGH);
-  //   delayMicroseconds(400);
-  // }
   udp.beginPacket(ServerIP, 2000);
   udp.write(ReplyBuffer);
   udp.endPacket();
-}
-
-void speed(int a) {
-  if (a=="1") {
-    digitalWrite(dirpin, HIGH);
-      digitalWrite(steppin, LOW);
-      delayMicroseconds(450);
-      digitalWrite(steppin, HIGH);
-      delayMicroseconds(450);
-  }
-
-  }
 }
