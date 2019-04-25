@@ -84,22 +84,23 @@ void loop() {
                         delay(10);
                 }
         }
+        // if (count == 0) {
+        //         strcpy(ReplyBuffer, "0");
+        //         delay(5);
+        // } else if (count == 1) {
+        //         strcpy(ReplyBuffer, "1");
+        //         delay(5);
+        // } else if (count == 2) {
+        //         strcpy(ReplyBuffer, "2");
+        //         delay(5);
+        // } else if (count == 3) {
+        //         strcpy(ReplyBuffer, "3");
+        //         delay(5);
+        // }
 
-        if (count == 0) {
-                strcpy(ReplyBuffer, "0");
-                delay(5);
-        } else if (count == 1) {
-                strcpy(ReplyBuffer, "1");
-                delay(5);
-        } else if (count == 2) {
-                strcpy(ReplyBuffer, "2");
-                delay(5);
-        } else if (count == 3) {
-                strcpy(ReplyBuffer, "3");
-                delay(5);
-        }
-
-        ReplyBuffer[1]=state2;
+        strcpy(ReplyBuffer, "\0");
+        strcpy(ReplyBuffer, count);
+        //strcat(ReplyBuffer, state2);
 
         Serial.println(ReplyBuffer);
         // Serial.println(ReplyBuffer);
