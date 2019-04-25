@@ -21,6 +21,7 @@ char  ReplyBuffer[] = "Client";
 int steppin = 4;
 int dirpin = 0;
 int buff = 0;
+int buff2 = 0;
 
 //speed controller
 void speed(int s) {
@@ -49,9 +50,9 @@ void speed(int s) {
 
 //direction controller
 void direction(int b) {
-  if (b=='H') {
+  if (b=='1') {
     digitalWrite(dirpin, HIGH);
-  } else if (b=='L') {
+  } else if (b=='0') {
     digitalWrite(dirpin, LOW);
   } else{}
 }
@@ -105,10 +106,11 @@ void loop()
     Serial.println(packetBuffer);
   }
   buff = packetBuffer[0];
+  buff2 = packetBuffer[1];
 
 
 speed(buff);
-direction(buff);
+direction(buff2);
 
 
   udp.beginPacket(ServerIP, 2000);
