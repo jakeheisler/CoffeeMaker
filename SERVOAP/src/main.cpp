@@ -15,8 +15,9 @@ int sw2 = 12;
 int bs = LOW;
 int bs2 = LOW;
 int count = 0;
+int state2 = 1;
 char packetBuffer[255]; // buffer to hold incoming packet
-char ReplyBuffer[] = "L";
+char ReplyBuffer[] = "00";
 unsigned int localPort = 2000; // local port to listen for UDP packets
 
 //=======================================================================
@@ -73,6 +74,11 @@ void loop() {
                 while (bs2 == LOW) {
                         bs2 = digitalRead(sw2);
                         if (bs2 == HIGH) {
+                                if(state2==1) {
+                                        state2=0;
+                                }else{
+                                        state2=1;
+                                }
                                 break;
                         }
                         delay(10);
@@ -80,22 +86,20 @@ void loop() {
         }
 
         if (count == 0) {
-                strcpy(ReplyBuffer, "\0");
                 strcpy(ReplyBuffer, "0");
-                delay(10);
+                delay(5);
         } else if (count == 1) {
-                strcpy(ReplyBuffer, "\0");
                 strcpy(ReplyBuffer, "1");
-                delay(10);
+                delay(5);
         } else if (count == 2) {
-                strcpy(ReplyBuffer, "\0");
                 strcpy(ReplyBuffer, "2");
-                delay(10);
+                delay(5);
         } else if (count == 3) {
-                strcpy(ReplyBuffer, "\0");
                 strcpy(ReplyBuffer, "3");
-                delay(10);
+                delay(5);
         }
+
+        ReplyBuffer[1]=state2;
 
         Serial.println(ReplyBuffer);
         // Serial.println(ReplyBuffer);
