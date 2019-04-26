@@ -10,21 +10,23 @@ IPAddress ClientIP(192, 168, 4, 2);
 
 // A UDP instance to let us send and receive packets over UDP
 WiFiUDP udp;
+
 int sw1 = 4;
 int sw2 = 12;
-int bs = LOW;
-int bs2 = LOW;
-int count = 0;
-int state2 = 1;
 char packetBuffer[2]; // buffer to hold incoming packet
 char ReplyBuffer[2];
 unsigned int localPort = 2000; // local port to listen for UDP packets
 
 int button1() {
-        if (bs == LOW) {
-                while (bs == LOW) {
-                        bs = digitalRead(sw1);
-                        if (bs == HIGH) {
+
+
+        int bs1 = LOW;
+        int count = 0;
+
+        if (bs1 == LOW) {
+                while (bs1 == LOW) {
+                        bs1 = digitalRead(sw1);
+                        if (bs1 == HIGH) {
                                 count = count + 1;
                                 if (count == 4) {
                                         count = 0;
@@ -37,6 +39,9 @@ int button1() {
         return count;
 }
 int button2() {
+
+        int bs2 = LOW;
+        int state2 = 1;
         if (bs2 == LOW) {
                 while (bs2 == LOW) {
                         bs2 = digitalRead(sw2);
@@ -87,8 +92,8 @@ void loop() {
                 Serial.println(packetBuffer);
         }
         delay(10);
-        bs = digitalRead(sw1);
-        delay(10);
+        //bs = digitalRead(sw1);
+
 
         // if (bs == LOW) {
         //         while (bs == LOW) {
@@ -103,9 +108,6 @@ void loop() {
         //                 delay(10);
         //         }
         // }
-
-
-
         // if (bs2 == LOW) {
         //         while (bs2 == LOW) {
         //                 bs2 = digitalRead(sw2);
@@ -120,8 +122,6 @@ void loop() {
         //                 delay(10);
         //         }
         // }
-
-
         // if (count == 0) {
         //         strcpy(ReplyBuffer, "0");
         //         delay(5);
@@ -135,6 +135,7 @@ void loop() {
         //         strcpy(ReplyBuffer, "3");
         //         delay(5);
         // }
+
 
         strcpy(ReplyBuffer, "\0");
         int c = button1();
