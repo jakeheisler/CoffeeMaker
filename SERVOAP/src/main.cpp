@@ -16,9 +16,43 @@ int bs = LOW;
 int bs2 = LOW;
 int count = 0;
 int state2 = 1;
-char packetBuffer[255]; // buffer to hold incoming packet
-char ReplyBuffer[] = "00";
+char packetBuffer[2]; // buffer to hold incoming packet
+char ReplyBuffer[2];
 unsigned int localPort = 2000; // local port to listen for UDP packets
+
+int button1() {
+        if (bs == LOW) {
+                while (bs == LOW) {
+                        bs = digitalRead(sw1);
+                        if (bs == HIGH) {
+                                count = count + 1;
+                                if (count == 4) {
+                                        count = 0;
+                                }
+                                break;
+                        }
+                        delay(10);
+                }
+        }
+        return count;
+}
+int button2() {
+        if (bs2 == LOW) {
+                while (bs2 == LOW) {
+                        bs2 = digitalRead(sw2);
+                        if (bs2 == HIGH) {
+                                if(state2==1) {
+                                        state2=0;
+                                }else{
+                                        state2=1;
+                                }
+                                break;
+                        }
+                        delay(10);
+                }
+        }
+        return state2;
+}
 
 //=======================================================================
 //                Setup
@@ -56,34 +90,38 @@ void loop() {
         bs = digitalRead(sw1);
         delay(10);
 
-        if (bs == LOW) {
-                while (bs == LOW) {
-                        bs = digitalRead(sw1);
-                        if (bs == HIGH) {
-                                count = count + 1;
-                                if (count == 4) {
-                                        count = 0;
-                                }
-                                break;
-                        }
-                        delay(10);
-                }
-        }
+        // if (bs == LOW) {
+        //         while (bs == LOW) {
+        //                 bs = digitalRead(sw1);
+        //                 if (bs == HIGH) {
+        //                         count = count + 1;
+        //                         if (count == 4) {
+        //                                 count = 0;
+        //                         }
+        //                         break;
+        //                 }
+        //                 delay(10);
+        //         }
+        // }
 
-        if (bs2 == LOW) {
-                while (bs2 == LOW) {
-                        bs2 = digitalRead(sw2);
-                        if (bs2 == HIGH) {
-                                if(state2==1) {
-                                        state2=0;
-                                }else{
-                                        state2=1;
-                                }
-                                break;
-                        }
-                        delay(10);
-                }
-        }
+
+
+        // if (bs2 == LOW) {
+        //         while (bs2 == LOW) {
+        //                 bs2 = digitalRead(sw2);
+        //                 if (bs2 == HIGH) {
+        //                         if(state2==1) {
+        //                                 state2=0;
+        //                         }else{
+        //                                 state2=1;
+        //                         }
+        //                         break;
+        //                 }
+        //                 delay(10);
+        //         }
+        // }
+
+
         // if (count == 0) {
         //         strcpy(ReplyBuffer, "0");
         //         delay(5);
@@ -99,7 +137,12 @@ void loop() {
         // }
 
         strcpy(ReplyBuffer, "\0");
-        strcpy(ReplyBuffer, count);
+        int c = button1();
+        int s = button2();
+        ReplyBuffer[0]=c;
+        ReplyBuffer[1]=s;
+
+        //strcpy(ReplyBuffer, count);
         //strcat(ReplyBuffer, state2);
 
         Serial.println(ReplyBuffer);
